@@ -58,6 +58,10 @@ func callPND(c calculatorpb.CalculatorServiceClient) {
 			return
 		}
 
+		if recvErr != nil {
+			log.Fatalf("callPND recvErr %v", recvErr)
+		}
+
 		log.Printf("prime number %v", resp.GetResult())
 	}
 }
