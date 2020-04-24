@@ -37,9 +37,18 @@ message FindMaxResponse {
     int32 max = 1;
 }
 
+message SquareRequest {
+    int32 num = 1;
+}
+
+message SquareResponse {
+    double squareRoot = 1;
+}
+
 service CalculatorService {
     rpc Sum(SumRequest) returns (SumResponse) {}
     rpc PrimeNumberDecomposition(PNDRequest) returns (stream PNDResponse) {}
     rpc Average(stream AverageRequest) returns (AverageResponse) {}
     rpc FindMax(stream FindMaxRequest) returns (stream FindMaxResponse) {}
+    rpc Square(SquareRequest) returns (SquareResponse) {}
 }

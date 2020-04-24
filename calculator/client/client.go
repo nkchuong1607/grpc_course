@@ -6,6 +6,10 @@ import (
 	"log"
 	"time"
 
+	"google.golang.org/grpc/codes"
+
+	"google.golang.org/grpc/status"
+
 	"github.com/nkchuong1607/grpc_course/calculator/calculatorpb"
 
 	"google.golang.org/grpc"
@@ -25,7 +29,8 @@ func main() {
 	// callSum(client)
 	// callPND(client)
 	// callAverage(client)
-	callFindMax(client)
+	// callFindMax(client)
+	callSquareRoot(client, -4)
 }
 
 func callSum(c calculatorpb.CalculatorServiceClient) {
@@ -165,4 +170,25 @@ func callFindMax(c calculatorpb.CalculatorServiceClient) {
 	}()
 
 	<-waitc
+}
+
+func callSquareRoot(c calculatorpb.CalculatorServiceClient, num int32) {
+	log.Println("calling square root api")
+	resp, err := c.Square(context.Background(), &calculatorpb.SquareRequest{
+		Num: num,
+	})
+
+	if err != nil {
+		log.Printf("call square root api err %v\n", err)
+		if errStatus, ok := status.FromError(err); ok {
+			log.Printf("err msg: %v\n", errStatus.Message())
+			log.Printf("err code: %v\n", errStatus.Code())
+			if errStatus.Code() == codes.InvalidArgument {
+				log.Printf("InvalidArgument num %v", num)
+				return
+			}
+		}
+	}
+
+	log.Printf("square root response %v\n", resp.GetSquareRoot())
 }

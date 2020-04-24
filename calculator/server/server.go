@@ -5,8 +5,12 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math"
 	"net"
 	"time"
+
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	"github.com/nkchuong1607/grpc_course/calculator/calculatorpb"
 
@@ -96,6 +100,19 @@ func (*server) FindMax(stream calculatorpb.CalculatorService_FindMaxServer) erro
 			return err
 		}
 	}
+}
+
+func (*server) Square(ctx context.Context, req *calculatorpb.SquareRequest) (*calculatorpb.SquareResponse, error) {
+	log.Println("Square called...")
+	num := req.GetNum()
+	if num < 0 {
+		log.Printf("req num < 0, num=%v, return InvalidArgument", num)
+		return nil, status.Errorf(codes.InvalidArgument, "Expect num > 0, req num was %v", num)
+	}
+
+	return &calculatorpb.SquareResponse{
+		SquareRoot: math.Sqrt(float64(num)),
+	}, nil
 }
 
 func main() {
