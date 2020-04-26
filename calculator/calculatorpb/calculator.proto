@@ -47,6 +47,7 @@ message SquareResponse {
 
 service CalculatorService {
     rpc Sum(SumRequest) returns (SumResponse) {}
+    rpc SumWithDeadline(SumRequest) returns (SumResponse) {}
     rpc PrimeNumberDecomposition(PNDRequest) returns (stream PNDResponse) {}
     rpc Average(stream AverageRequest) returns (AverageResponse) {}
     rpc FindMax(stream FindMaxRequest) returns (stream FindMaxResponse) {}

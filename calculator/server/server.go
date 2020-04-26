@@ -28,6 +28,24 @@ func (*server) Sum(ctx context.Context, req *calculatorpb.SumRequest) (*calculat
 	return resp, nil
 }
 
+func (*server) SumWithDeadline(ctx context.Context, req *calculatorpb.SumRequest) (*calculatorpb.SumResponse, error) {
+	log.Println("sum with deadline called...")
+
+	for i := 0; i < 3; i++ {
+		if ctx.Err() == context.Canceled {
+			log.Println("context.Canceled...")
+			return nil, status.Error(codes.Canceled, "client canceled req")
+		}
+		time.Sleep(1 * time.Second)
+	}
+
+	resp := &calculatorpb.SumResponse{
+		Result: req.GetNum1() + req.GetNum2(),
+	}
+
+	return resp, nil
+}
+
 func (*server) PrimeNumberDecomposition(req *calculatorpb.PNDRequest,
 	stream calculatorpb.CalculatorService_PrimeNumberDecompositionServer) error {
 	log.Println("PrimeNumberDecomposition called...")
