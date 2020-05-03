@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/status"
 
 	"github.com/nkchuong1607/grpc_course/calculator/calculatorpb"
@@ -139,8 +140,17 @@ func main() {
 	if err != nil {
 		log.Fatalf("err while create listen %v", err)
 	}
+	certFile := "ssl/server.crt"
+	keyFile := "ssl/server.pem"
 
-	s := grpc.NewServer()
+	creds, sslErr := credentials.NewServerTLSFromFile(certFile, keyFile)
+	if sslErr != nil {
+		log.Fatalf("create creds ssl err %v\n", sslErr)
+		return
+	}
+	opts := grpc.Creds(creds)
+
+	s := grpc.NewServer(opts)
 
 	calculatorpb.RegisterCalculatorServiceServer(s, &server{})
 
