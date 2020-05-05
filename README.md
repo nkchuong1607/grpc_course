@@ -15,6 +15,7 @@ service CalculatorService {
 }
 ```
 
+
 Trong source code Contact sẽ bao gồm các demo sử dụng gRPC và MySQL dùng framework Beego ORM
 Bao gồm:
  - Connect Mysql with Beego ORM
@@ -30,6 +31,8 @@ service ContactService {
 ```
 
 [Beego Document](https://beego.me/docs/mvc/model/orm.md)
+
+
 Code sẽ được update theo tiến độ của video.
 
 Mong được quý đạo hữu ủng hộ.
