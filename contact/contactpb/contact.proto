@@ -5,5 +5,20 @@ package contact;
 option go_package="contactpb";
 
 service ContactService {
-    
+    rpc Insert(InsertRequest) returns (InsertResponse){}
+}
+
+message Contact {
+    string phoneNumber = 1;
+    string name = 2;
+    string address = 3;
+}
+
+message InsertRequest {
+    Contact contact = 1;
+}
+
+message InsertResponse {
+    int32 statusCode = 1; // statusCode = 1 -> success
+    string message = 2;
 }

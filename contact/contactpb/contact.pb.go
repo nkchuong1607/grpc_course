@@ -8,6 +8,8 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -22,17 +24,174 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type Contact struct {
+	PhoneNumber          string   `protobuf:"bytes,1,opt,name=phoneNumber,proto3" json:"phoneNumber,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Address              string   `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Contact) Reset()         { *m = Contact{} }
+func (m *Contact) String() string { return proto.CompactTextString(m) }
+func (*Contact) ProtoMessage()    {}
+func (*Contact) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7c204982b934798c, []int{0}
+}
+
+func (m *Contact) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Contact.Unmarshal(m, b)
+}
+func (m *Contact) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Contact.Marshal(b, m, deterministic)
+}
+func (m *Contact) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Contact.Merge(m, src)
+}
+func (m *Contact) XXX_Size() int {
+	return xxx_messageInfo_Contact.Size(m)
+}
+func (m *Contact) XXX_DiscardUnknown() {
+	xxx_messageInfo_Contact.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Contact proto.InternalMessageInfo
+
+func (m *Contact) GetPhoneNumber() string {
+	if m != nil {
+		return m.PhoneNumber
+	}
+	return ""
+}
+
+func (m *Contact) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Contact) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+type InsertRequest struct {
+	Contact              *Contact `protobuf:"bytes,1,opt,name=contact,proto3" json:"contact,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *InsertRequest) Reset()         { *m = InsertRequest{} }
+func (m *InsertRequest) String() string { return proto.CompactTextString(m) }
+func (*InsertRequest) ProtoMessage()    {}
+func (*InsertRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7c204982b934798c, []int{1}
+}
+
+func (m *InsertRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InsertRequest.Unmarshal(m, b)
+}
+func (m *InsertRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InsertRequest.Marshal(b, m, deterministic)
+}
+func (m *InsertRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InsertRequest.Merge(m, src)
+}
+func (m *InsertRequest) XXX_Size() int {
+	return xxx_messageInfo_InsertRequest.Size(m)
+}
+func (m *InsertRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_InsertRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InsertRequest proto.InternalMessageInfo
+
+func (m *InsertRequest) GetContact() *Contact {
+	if m != nil {
+		return m.Contact
+	}
+	return nil
+}
+
+type InsertResponse struct {
+	StatusCode           int32    `protobuf:"varint,1,opt,name=statusCode,proto3" json:"statusCode,omitempty"`
+	Message              string   `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *InsertResponse) Reset()         { *m = InsertResponse{} }
+func (m *InsertResponse) String() string { return proto.CompactTextString(m) }
+func (*InsertResponse) ProtoMessage()    {}
+func (*InsertResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7c204982b934798c, []int{2}
+}
+
+func (m *InsertResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InsertResponse.Unmarshal(m, b)
+}
+func (m *InsertResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InsertResponse.Marshal(b, m, deterministic)
+}
+func (m *InsertResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InsertResponse.Merge(m, src)
+}
+func (m *InsertResponse) XXX_Size() int {
+	return xxx_messageInfo_InsertResponse.Size(m)
+}
+func (m *InsertResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_InsertResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InsertResponse proto.InternalMessageInfo
+
+func (m *InsertResponse) GetStatusCode() int32 {
+	if m != nil {
+		return m.StatusCode
+	}
+	return 0
+}
+
+func (m *InsertResponse) GetMessage() string {
+	if m != nil {
+		return m.Message
+	}
+	return ""
+}
+
+func init() {
+	proto.RegisterType((*Contact)(nil), "contact.Contact")
+	proto.RegisterType((*InsertRequest)(nil), "contact.InsertRequest")
+	proto.RegisterType((*InsertResponse)(nil), "contact.InsertResponse")
+}
+
 func init() {
 	proto.RegisterFile("contactpb/contact.proto", fileDescriptor_7c204982b934798c)
 }
 
 var fileDescriptor_7c204982b934798c = []byte{
-	// 72 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4f, 0xce, 0xcf, 0x2b,
-	0x49, 0x4c, 0x2e, 0x29, 0x48, 0xd2, 0x87, 0xb2, 0xf4, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0xd8,
-	0xa1, 0x5c, 0x23, 0x01, 0x2e, 0x3e, 0x67, 0x08, 0x33, 0x38, 0xb5, 0xa8, 0x2c, 0x33, 0x39, 0xd5,
-	0x89, 0x3b, 0x8a, 0x13, 0xae, 0x2b, 0x89, 0x0d, 0xac, 0xdc, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff,
-	0xee, 0xc2, 0x8a, 0x42, 0x49, 0x00, 0x00, 0x00,
+	// 229 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x90, 0xbd, 0x4e, 0xc4, 0x30,
+	0x10, 0x84, 0x39, 0x7e, 0x2e, 0xba, 0x8d, 0x38, 0xa1, 0x2d, 0x38, 0x8b, 0x02, 0x9d, 0x52, 0x21,
+	0x8a, 0x20, 0x85, 0x32, 0x1d, 0xa9, 0x40, 0x82, 0xc2, 0x54, 0xd0, 0x39, 0xc9, 0x0a, 0x28, 0x62,
+	0x1b, 0xaf, 0xc3, 0xf3, 0x23, 0x1c, 0x3b, 0x0a, 0xba, 0x6e, 0x66, 0x2c, 0xcf, 0x7e, 0x1a, 0xd8,
+	0x75, 0x46, 0x7b, 0xd5, 0x79, 0xdb, 0xde, 0x45, 0x55, 0x5a, 0x67, 0xbc, 0xc1, 0x2c, 0xda, 0xe2,
+	0x0d, 0xb2, 0x66, 0x92, 0xb8, 0x87, 0xdc, 0x7e, 0x1a, 0x4d, 0x2f, 0xe3, 0xd0, 0x92, 0x13, 0xab,
+	0xfd, 0xea, 0x66, 0x23, 0x97, 0x11, 0x22, 0x9c, 0x6a, 0x35, 0x90, 0x38, 0x0e, 0x4f, 0x41, 0xa3,
+	0x80, 0x4c, 0xf5, 0xbd, 0x23, 0x66, 0x71, 0x12, 0xe2, 0x64, 0x8b, 0x1a, 0xce, 0x1f, 0x35, 0x93,
+	0xf3, 0x92, 0xbe, 0x47, 0x62, 0x8f, 0xb7, 0x90, 0xce, 0x86, 0xf2, 0xbc, 0xba, 0x28, 0x13, 0x55,
+	0x64, 0x90, 0x33, 0xd7, 0x13, 0x6c, 0xd3, 0x67, 0xb6, 0x46, 0x33, 0xe1, 0x35, 0x00, 0x7b, 0xe5,
+	0x47, 0x6e, 0x4c, 0x4f, 0xa1, 0xe0, 0x4c, 0x2e, 0x92, 0x3f, 0x90, 0x81, 0x98, 0xd5, 0x47, 0xe2,
+	0x4b, 0xb6, 0x7a, 0x86, 0x6d, 0xec, 0x7f, 0x25, 0xf7, 0xf3, 0xd5, 0x11, 0xd6, 0xb0, 0x9e, 0xda,
+	0xf1, 0x72, 0x46, 0xf8, 0xc7, 0x7a, 0xb5, 0x3b, 0xc8, 0x27, 0x8c, 0xe2, 0xe8, 0x21, 0x7f, 0xdf,
+	0xcc, 0xb3, 0xb6, 0xeb, 0xb0, 0xe7, 0xfd, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x84, 0xab, 0x77,
+	0x1d, 0x6a, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -47,6 +206,7 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ContactServiceClient interface {
+	Insert(ctx context.Context, in *InsertRequest, opts ...grpc.CallOption) (*InsertResponse, error)
 }
 
 type contactServiceClient struct {
@@ -57,22 +217,59 @@ func NewContactServiceClient(cc grpc.ClientConnInterface) ContactServiceClient {
 	return &contactServiceClient{cc}
 }
 
+func (c *contactServiceClient) Insert(ctx context.Context, in *InsertRequest, opts ...grpc.CallOption) (*InsertResponse, error) {
+	out := new(InsertResponse)
+	err := c.cc.Invoke(ctx, "/contact.ContactService/Insert", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ContactServiceServer is the server API for ContactService service.
 type ContactServiceServer interface {
+	Insert(context.Context, *InsertRequest) (*InsertResponse, error)
 }
 
 // UnimplementedContactServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedContactServiceServer struct {
 }
 
+func (*UnimplementedContactServiceServer) Insert(ctx context.Context, req *InsertRequest) (*InsertResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Insert not implemented")
+}
+
 func RegisterContactServiceServer(s *grpc.Server, srv ContactServiceServer) {
 	s.RegisterService(&_ContactService_serviceDesc, srv)
+}
+
+func _ContactService_Insert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InsertRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContactServiceServer).Insert(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/contact.ContactService/Insert",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContactServiceServer).Insert(ctx, req.(*InsertRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _ContactService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "contact.ContactService",
 	HandlerType: (*ContactServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "contactpb/contact.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Insert",
+			Handler:    _ContactService_Insert_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "contactpb/contact.proto",
 }
