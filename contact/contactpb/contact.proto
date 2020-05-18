@@ -6,6 +6,10 @@ option go_package="contactpb";
 
 service ContactService {
     rpc Insert(InsertRequest) returns (InsertResponse){}
+    rpc Read(ReadRequest) returns (ReadResponse){}
+    rpc Update(UpdateRequest) returns (UpdateResponse){}
+    rpc Delete(DeleteRequest) returns (DeleteResponse){}
+    rpc Search(SearchRequest) returns (SearchResponse){}
 }
 
 message Contact {
@@ -21,4 +25,37 @@ message InsertRequest {
 message InsertResponse {
     int32 statusCode = 1; // statusCode = 1 -> success
     string message = 2;
+}
+
+message ReadRequest {
+    string phoneNumber = 1;
+}
+
+message ReadResponse {
+    Contact contact = 1;
+}
+
+message UpdateRequest {
+    Contact newContact = 1;
+}
+
+message UpdateResponse {
+    Contact updateContact = 1;
+}
+
+message DeleteRequest {
+    string phoneNumber = 1;
+}
+
+message DeleteResponse {
+    int32 statusCode = 1;
+    string message = 2;
+}
+
+message SearchRequest {
+    string searchName = 1;
+}
+
+message SearchResponse {
+    repeated Contact results = 1;
 }

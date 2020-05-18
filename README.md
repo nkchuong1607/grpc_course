@@ -26,9 +26,16 @@ Bao gồm:
 
 ```
 service ContactService {
-    // update later in next video
+    rpc Insert(InsertRequest) returns (InsertResponse){}
+    rpc Read(ReadRequest) returns (ReadResponse){}
+    rpc Update(UpdateRequest) returns (UpdateResponse){}
+    rpc Delete(DeleteRequest) returns (DeleteResponse){}
+    rpc Search(SearchRequest) returns (SearchResponse){}
 }
 ```
+
+Demo hướng dẫn sử dụng Beego ORM với các thao tác CRUD và query đơn giản.
+Advance query các đạo hữu có thể tham khảo trên document của Beego nhé!
 
 [Beego Document](https://beego.me/docs/mvc/model/orm.md)
 
