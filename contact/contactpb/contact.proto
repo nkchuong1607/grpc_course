@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package contact;
 
-option go_package="contactpb";
+option go_package="github.com/nkchuong1607/grpc_course/contact/contactpb";
 
 service ContactService {
     rpc Insert(InsertRequest) returns (InsertResponse){}
