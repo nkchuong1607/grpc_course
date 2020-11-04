@@ -17,8 +17,8 @@ import (
 )
 
 func main() {
-	certFile := "ssl/ca.crt"
-	creds, sslErr := credentials.NewClientTLSFromFile(certFile, "")
+	certFile := "ssl/server.crt"
+	creds, sslErr := credentials.NewClientTLSFromFile(certFile, "localhost")
 	if sslErr != nil {
 		log.Fatalf("create client creds ssl err %v\n", sslErr)
 		return
